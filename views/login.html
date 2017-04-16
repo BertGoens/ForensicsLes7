@@ -1,0 +1,67 @@
+<html>
+
+<head>
+  <title>Scoreboard Forensics</title>
+  <style type="text/css">
+    .alternate tr:nth-child(odd) {
+      background-color: #aaa;
+    }
+    
+    .alternate tr:nth-child(even) {
+      background-color: #fff;
+    }
+    
+    table {
+      border-collapse: collapse;
+      display: inline-block;
+      font-size: 15pt;
+    }
+  </style>
+</head>
+
+<body onload="init(0);">
+  <table width="100%" align="center" style="display:table;">
+    <tbody>
+      <tr>
+        <td colspan="100" align="center">
+          <h2>CCCP Forensics<br/>Reveal My Files</h2>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="100" align="center">
+          <h3>
+            <u><a href="/forensics/">Scoreboard</a></u>&nbsp;&nbsp; </h3>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="100" align="center"><a href="/forensics/?spectator=true">I am just a spectator!!</a><br/><br/>
+          <form action="" method="POST">
+            <table border="0">
+              <tr>
+                <td>Please provide your groupname:</td>
+                <td><input type="text" name="groupname" /></td>
+              </tr>
+              <tr>
+                <td colspan="100" align="center"><input type="submit" value="Submit" name="submgroup" /></td>
+              </tr>
+            </table>
+          </form>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="100" align="center"><span style="color:red;"></span></td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="100" style="text-align:center;">Bert Goens &copy;
+          <script>
+            document.write(new Date().getFullYear())
+          </script>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</body>
+
+</html>
