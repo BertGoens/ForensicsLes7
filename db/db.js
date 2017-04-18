@@ -1,5 +1,5 @@
 const mysql = require('mysql');
-//const Promise = require('bluebird');
+const Promise = require('bluebird');
 
 const dbConfig = {
     host: process.env.DB_HOST,
