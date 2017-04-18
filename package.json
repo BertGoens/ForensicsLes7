@@ -4,7 +4,7 @@
   "description": "Forensics Les (Labo) 7, Flags GUI (website)",
   "main": "index.js",
   "scripts": {
-    "start": "PORT=8000 node index.js"
+    "start": "node index.js"
   },
   "repository": "https://github.com/BertGoens/ForensicsLes7.git",
   "author": "Bert Goens <bertgoens@gmail.com>",
