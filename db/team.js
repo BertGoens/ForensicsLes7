@@ -30,6 +30,10 @@ module.exports.getByTeamName = function (groupname) {
     });
 }
 
+module.exports.addFlagToTeam = function(teamname, flagid) {
+    
+}
+
 module.exports.getAll = function () {
     return new Promise(function (resolve, reject) {
         db.getConnection().then(function (connection) {

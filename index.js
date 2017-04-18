@@ -1,3 +1,7 @@
+require('dotenv-safe').load({
+  sample: './.env'
+})
+
 const express = require('express');
 const app = express();
 
@@ -7,12 +11,12 @@ const bodyParser = require('body-parser');
 const postParser = bodyParser.urlencoded({ extended: false }); // POST requests
 
 const db = require('./db/db');
-const db_group = require('./db/group')
+const db_team = require('./db/team')
+const db_flag = require('./db/flag')
 
 const path = require('path');
 
 const BASE_URL = '/forensics';
-const PORT = process.env.PORT;
 
 app.set('views', path.join(__dirname, 'views'));
 app.engine('html', require('ejs').renderFile);
@@ -20,7 +24,7 @@ app.set('view engine', 'html');
 
 /**** Middleware ****/
 app.use(session({
-  secret: 'bertbertbert',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true
 }))
@@ -40,28 +44,49 @@ app.post(BASE_URL + '/', postParser, function (req, res) {
   req.session.groupname = groupname;
 
   // db: create group name if not exists
-  db_group.getByTeamName(groupname).then(function (group) {
+  db_team.getByTeamName(groupname).then(function (group) {
     if (!group || group.length < 1)
-      db_group.createTeamByName(groupname).catch((err) => { console.error(err)})
+      db_team.createTeamByName(groupname).catch((err) => { console.error(err) })
   }).catch((err) => {
     console.error('\n' + err + '\n');
   })
 
-// url: send user to scoreboard
-res.redirect(BASE_URL + '/scoreboard')
+  // url: send user to scoreboard
+  res.redirect(BASE_URL + '/scoreboard')
 })
 
 app.get(BASE_URL + '/scoreboard', function (req, res) {
   const group = req.session.groupname = groupname;
   // db lookup: all flags (count) for each group
+
+  // return
+  // [team, flagcount, lastFlagFoundTime]
 })
 
 app.post(BASE_URL + '/scoreboard', function (req, res) {
-  const group = req.session.groupname = groupname;
-  // if flag in db
-  // if flag not duplicate
-  // add flag
-  // send response: FLAG FOUND!
+  const team = req.session.groupname = groupname;
+
+  // post: get flagname
+  let flagname = req.body.flag;
+
+  // check if flag exists
+  db_flag.getFlagByName(flagname).then(function (flagRow) {
+    if (flagRow.length > 0) {
+      // Correct flag, add in database
+      db_team.addFlagToTeam(team, flagname).then(() => {
+        // Good job, send to scoreboard
+        let scData = {
+          scoreboard: ['team', 'flagcount', 'lastFlagFoundTime'],
+          message: `Flag found, ${flagRow[points]}`
+        };
+        res.render('scoreboard.html', scoreboardData);
+      }).catch((err) => {
+        // Something went wrong (Duplicate flag?)
+      })
+    } else {
+      // Wrong flag, pentalty!
+    }
+  })
 })
 
 app.get(BASE_URL + '/details', function (req, res) {
@@ -72,7 +97,7 @@ app.get(BASE_URL + '/*', function (req, res) {
   res.send(404);
 });
 
-let httpServer = app.listen(PORT, (err) => {
+let httpServer = app.listen(process.env.PORT, (err) => {
   (err) ? console.log('APP NOT OK!') : console.log('APP OK √');
 })
 

@@ -1,0 +1,129 @@
+<html>
+
+<head>
+  <title>Scoreboard Forensics</title>
+  <style type="text/css">
+    .alternate tr:nth-child(odd) {
+      background-color: #aaa;
+    }
+    
+    .alternate tr:nth-child(even) {
+      background-color: #fff;
+    }
+    
+    table {
+      border-collapse: collapse;
+      display: inline-block;
+      font-size: 15pt;
+    }
+  </style>
+</head>
+
+<body onload="init(0);">
+  <table width="100%" align="center" style="display:table;">
+    <tbody>
+      <tr>
+        <td colspan="100" align="center">
+          <h2>CCCP Forensics<br/>Reveal My Files</h2>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="100" align="center">
+          <h3>
+            <u><a href="/forensics/scoreboard">Scoreboard</a></u>&nbsp;&nbsp; </h3>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="100" align="center">
+          <input type="text" name="flagcode" id="flagcode" style="display:none;" />
+          <progress id="progressbar" value="0" max="200"></progress><br/>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="100" align="center">
+          <form action="" method="POST">
+            <table border="0">
+              <tr>
+                <td>Enter your flag:</td>
+                <td><input type="text" name="flag" /></td>
+              </tr>
+              <tr>
+                <td colspan="100" align="center"><input type="submit" value="Submit" name="submgroup" /></td>
+              </tr>
+            </table>
+          </form>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="100" align="center">
+          <table border="0" class="alternate">
+            <thead>
+              <tr>
+                <td style="border-right: thin solid;">
+                  <h3>Groupname</h3>
+                </td>
+                <td style="border-right: thin solid;">
+                  <h3>&nbsp;Current Score</h3>
+                </td>
+                <td>
+                  <h3>Last Inserted Flag</h3>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3" align="center">
+                  <hr/>
+                </td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td align="center" style="border-right: thin solid;">Bert</td>
+                <td align="center" style="border-right: thin solid;">100%</td>
+                <td align="center">2017-03-27 13:35:51</td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="100" align="center"><span style="color:red;"></span></td>
+      </tr>
+      <tr>
+        <td colspan="100" align="center"><br/><br/><br/><a href="?logout=true">Logout</a></td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="100" style="text-align:center;">Bert Goens &copy;
+          <script>
+            document.write(new Date().getFullYear())
+          </script>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</body>
+<script type="text/javascript">
+  function goToPage(url) {
+    if (url !== "") {
+      window.location.href = url;
+    }
+  }
+
+  function init(val) {
+    document.getElementById('progressbar').value = val;
+    setTimeout(function () {
+      if (document.getElementById('flagcode').value === "") {
+        init(val + 1);
+        if (val === 200) {
+          window.location.href = '?';
+        }
+      } else {
+        init(val);
+      }
+    }, 100);
+  }
+
+</script>
+
+</html>

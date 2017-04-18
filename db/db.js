@@ -2,10 +2,10 @@ const mysql = require('mysql');
 //const Promise = require('bluebird');
 
 const dbConfig = {
-    host: '192.168.1.48',
-    database: 'ForensicsLab7',
-    user: 'bert',
-    password: 'bert',
+    host: process.env.DB_HOST,
+    database: process.env.DB_DBNAME,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
     connectionLimit: 100, /* default 10 */
     queueLimit: 100, /* default 0 (= unlimited) */
 }
